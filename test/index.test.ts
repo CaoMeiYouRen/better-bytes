@@ -106,6 +106,11 @@ describe('format', () => {
         expect(() => format({} as any)).toThrow('Data must be a number or bigint')
     })
 
+    test('throws error for non-finite numbers', () => {
+        expect(() => format(Infinity)).toThrow('Data must be finite')
+        expect(() => format(NaN)).toThrow('Data must be finite')
+    })
+
 })
 
 describe('parse', () => {
@@ -149,14 +154,16 @@ describe('parse', () => {
         expect(parse('1KB')).toBe(1000)
     })
 
-    it('should handle positive and negative values', () => {
+    it('should handle positive values', () => {
         expect(parse('+1KiB')).toBe(1024)
-        expect(parse('-1KiB')).toBeNull()
     })
 
     it('should return null for invalid input', () => {
         expect(parse('invalid')).toBeNull()
         expect(parse('1XB')).toBeNull()
+        expect(parse('-1KiB')).toBeNull()
+        expect(parse('Infinity')).toBeNull()
+        expect(parse('-Infinity')).toBeNull()
     })
 
     it('should throw error for non-string input', () => {
@@ -182,8 +189,8 @@ describe('parse', () => {
     })
 
     it('should handle values with many decimal places', () => {
-        expect(parse('1.123456789012345KiB')).toBe(1150.4197519486413)
-        expect(parse('1.123456789012345KB')).toBe(1123.456789012345)
+        expect(parse('1.123456789012345GiB')).toBe(1206302541)
+        expect(parse('1.123456789012345GB')).toBe(1123456789)
     })
 
     it('should handle values with many decimal places and return bigint when necessary', () => {

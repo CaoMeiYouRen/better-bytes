@@ -47,6 +47,9 @@ export function format(data: number | bigint, options: FormatOptions = {}): stri
     if (typeof data !== 'number' && typeof data !== 'bigint') {
         throw new Error('Data must be a number or bigint')
     }
+    if (typeof data === 'number' && !Number.isFinite(data)) { // +Infinity/-Infinity/NaN
+        throw new Error('Data must be finite')
+    }
     if (data < 0) {
         throw new Error('Data must be greater than or equal to 0')
     }
@@ -102,11 +105,12 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     const results = PARSE_REG_EXP.exec(data)
     const floatValue = parseFloat(results?.[1] || data)
     const unit = results?.[4]?.toLowerCase()
-    if (isNaN(floatValue) || floatValue < 0) {
+
+    if (!Number.isFinite(floatValue) || floatValue < 0) {
         return null
     }
     if (unit === '') {
-        return floatValue
+        return Math.floor(floatValue)
     }
     let i = 0
     let standard: StandardType
@@ -128,12 +132,16 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     const base = standard === 'kilobinary' ? KILO_BINARY_BYTE_BASE : KILOBYTE_BASE
     let result: number | bigint = floatValue
     for (let j = 0; j < i; j++) {
-        const nextResult = typeof result === 'bigint' ? result * BigInt(base) : result * base
+        const nextResult: number | bigint = typeof result === 'bigint' ? result * BigInt(base) : result * base
         if (nextResult > Number.MAX_SAFE_INTEGER) {
             result = BigInt(result) * BigInt(base)
         } else {
             result = nextResult
         }
     }
+    if (typeof result === 'number') {
+        result = Math.floor(result)
+    }
     return result
 }
+
