@@ -64,6 +64,9 @@ parse('1GiB') // 1073741824
 parse('1KB') // 1000
 parse('1GB') // 1000000000
 
+parse('1KB', { forceKilobinary: true }) // 1024
+parse('1GB', { forceKilobinary: true }) // 1073741824
+
 parse('1.5KiB') // 1536
 parse('1.5KB') // 1500
 
@@ -87,10 +90,18 @@ Format the given value in bytes into a string.
 
 **Arguments**
 
-| Name    | Type               | Description                                   |
-| ------- | ------------------ | --------------------------------------------- |
-| data    | `number`｜`bigint` | Number value to format. 要格式化的数值        |
-| options | `Options `         | Conversion options for `format`. 格式化的选项 |
+| Name    | Type               | Description                                     |
+| ------- | ------------------ | ----------------------------------------------- |
+| data    | `number`｜`bigint` | Number value to format. 要格式化的数值          |
+| options | `object`           | Conversion options for `format`. 格式化的选项。 |
+
+**Options**
+
+| Property      | Type                  | Description                                                  |
+| ------------- | --------------------- | ------------------------------------------------------------ |
+| decimal       | `number`｜`undefined` | Maximum number of decimal places to include in output. Default: `2`. 输出中包含的最大小数位数。默认值：`2`。 |
+| standard      | `kilobinary`|`kilo`   | base. kilobinary = 2^10 ; kilo = 10^3. Default: `kilobinary`. 进制规范。千位二进制=2^10；千位=10^3。默认值：`kilobinary` |
+| unitSeparator | `string`｜`undefined` | Separator to use between number and unit. Default: `' '`. 用于数字和单位之间的分隔符。默认值：`' '` |
 
 **Returns**
 
@@ -106,15 +117,22 @@ Parse the string value into an integer in bytes. If no unit is given, it is assu
 
 **Arguments**
 
-| Name | Type     | Description                             |
-| ---- | -------- | --------------------------------------- |
-| data | `string` | String value to parse. 要解析的字符串。 |
+| Name    | Type     | Description                             |
+| ------- | -------- | --------------------------------------- |
+| data    | `string` | String value to parse. 要解析的字符串。 |
+| options | `object` | Parsed options. 解析的选项。            |
+
+**Options**
+
+| Property        | Type                   | Description                                                  |
+| --------------- | ---------------------- | ------------------------------------------------------------ |
+| forceKilobinary | `boolean`｜`undefined` | If true, consider kilo as kilobinary, i.e. using 2 ^ 10 base. 如果为真，则将千位进制视为千位二进制，即使用2^10进制换算。 |
 
 **Returns**
 
-| Name    | Type | Description                                                  |
-| ------- | ---- | ------------------------------------------------------------ |
-| results | `number|bigint|null`   | Returns null on error. Otherwise, return the value of number or bigint in bytes. 出错时返回null。否则以字节为单位返回number或bigint的数值。 |
+| Name    | Type                     | Description                                                  |
+| ------- | ------------------------ | ------------------------------------------------------------ |
+| results | `number`|`bigint`|`null` | Returns null on error. Otherwise, return the value of number or bigint in bytes. 出错时返回null。否则以字节为单位返回number或bigint的数值。 |
 
 ## 🛠️ Development/开发
 

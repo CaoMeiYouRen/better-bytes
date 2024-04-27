@@ -1,26 +1,26 @@
 // Reference link: https://physics.nist.gov/cuu/Units/binary.html
 
 /**
- * binary: 2^10 = 1024
+ * base: 2^10 = 1024
  */
 export const KILO_BINARY_BYTE_UNITS = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
 
 /**
- * binary: 10^3 = 1000
+ * base: 10^3 = 1000
  */
 export const KILOBYTE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
-export const KILO_BINARY_BYTE_BINARY = 1024
-export const KILOBYTE_UINARY = 1000
+export const KILO_BINARY_BYTE_BASE = 1024
+export const KILOBYTE_BASE = 1000
 
 /**
  * kilobinary = 2^10 ; kilo = 10^3
  */
 export type StandardType = 'kilobinary' | 'kilo'
 
-export type Options = {
+export type FormatOptions = {
     /**
-     * binary. kilobinary = 2^10 ; kilo = 10^3. Default: kilobinary
+     * base. kilobinary = 2^10 ; kilo = 10^3. Default: kilobinary
      */
     standard?: StandardType
     /**
@@ -43,7 +43,7 @@ export type Options = {
  * @param data
  * @param [options={}]
  */
-export function format(data: number | bigint, options: Options = {}): string {
+export function format(data: number | bigint, options: FormatOptions = {}): string {
     if (typeof data !== 'number' && typeof data !== 'bigint') {
         throw new Error('Data must be a number or bigint')
     }
@@ -52,19 +52,19 @@ export function format(data: number | bigint, options: Options = {}): string {
     }
     const { standard = 'kilobinary', decimal = 2, unitSeparator = ' ' } = options
     const units = standard === 'kilobinary' ? KILO_BINARY_BYTE_UNITS : KILOBYTE_UNITS
-    const binary = standard === 'kilobinary' ? KILO_BINARY_BYTE_BINARY : KILOBYTE_UINARY
+    const base = standard === 'kilobinary' ? KILO_BINARY_BYTE_BASE : KILOBYTE_BASE
     let i = 0
     let value: number | bigint = data
 
     if (typeof value === 'bigint') {
-        const bigIntbinary = BigInt(binary)
-        while (value >= bigIntbinary && i < units.length - 1) {
-            value /= bigIntbinary
+        const bigIntBase = BigInt(base)
+        while (value >= bigIntBase && i < units.length - 1) {
+            value /= bigIntBase
             i++
         }
     } else {
-        while (value >= binary && i < units.length - 1) {
-            value /= binary
+        while (value >= base && i < units.length - 1) {
+            value /= base
             i++
         }
     }
@@ -77,6 +77,13 @@ export function format(data: number | bigint, options: Options = {}): string {
 
 export const PARSE_REG_EXP = /^((-|\+)?(\d+(?:\.\d+)?)) *((k|m|g|t|p|e|z|y)?i?b)$/i
 
+export type ParseOptions = {
+    /**
+     * If true, consider kilo as kilobinary, i.e. using 2 ^ 10 base
+     */
+    forceKilobinary?: boolean
+}
+
 /**
  * Parse the string value into an integer in bytes.
  * If no unit is given, it is assumed the value is in bytes.
@@ -87,10 +94,11 @@ export const PARSE_REG_EXP = /^((-|\+)?(\d+(?:\.\d+)?)) *((k|m|g|t|p|e|z|y)?i?b)
  * @export
  * @param data
  */
-export function parse(data: string): number | bigint | null {
+export function parse(data: string, options: ParseOptions = {}): number | bigint | null {
     if (typeof data !== 'string') {
         throw new Error('Data must be a string')
     }
+    const { forceKilobinary = false } = options
     const results = PARSE_REG_EXP.exec(data)
     const floatValue = parseFloat(results?.[1] || data)
     const unit = results?.[4]?.toLowerCase()
@@ -114,12 +122,15 @@ export function parse(data: string): number | bigint | null {
     if (!standard) {
         return null
     }
-    const binary = standard === 'kilobinary' ? KILO_BINARY_BYTE_BINARY : KILOBYTE_UINARY
+    if (forceKilobinary) {
+        standard = 'kilobinary'
+    }
+    const base = standard === 'kilobinary' ? KILO_BINARY_BYTE_BASE : KILOBYTE_BASE
     let result: number | bigint = floatValue
     for (let j = 0; j < i; j++) {
-        const nextResult = typeof result === 'bigint' ? result * BigInt(binary) : result * binary
+        const nextResult = typeof result === 'bigint' ? result * BigInt(base) : result * base
         if (nextResult > Number.MAX_SAFE_INTEGER) {
-            result = BigInt(result) * BigInt(binary)
+            result = BigInt(result) * BigInt(base)
         } else {
             result = nextResult
         }

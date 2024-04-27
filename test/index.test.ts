@@ -109,7 +109,7 @@ describe('format', () => {
 })
 
 describe('parse', () => {
-    test('should parse valid binary units', () => {
+    it('should parse valid binary units', () => {
         expect(parse('1B')).toBe(1)
         expect(parse('1KiB')).toBe(1024)
         expect(parse('1MiB')).toBe(1048576)
@@ -121,7 +121,7 @@ describe('parse', () => {
         expect(parse('1YiB')).toBe(1208925819614629174706176n)
     })
 
-    test('should parse valid decimal units', () => {
+    it('should parse valid decimal units', () => {
         expect(parse('1B')).toBe(1)
         expect(parse('1KB')).toBe(1000)
         expect(parse('1MB')).toBe(1000000)
@@ -133,31 +133,37 @@ describe('parse', () => {
         expect(parse('1YB')).toBe(1000000000000000000000000n)
     })
 
-    test('should parse decimal values', () => {
+    it('should parse with forceKilobinary option', () => {
+        expect(parse('1KB', { forceKilobinary: true })).toBe(1024)
+        expect(parse('1MB', { forceKilobinary: true })).toBe(1048576)
+        expect(parse('1GB', { forceKilobinary: true })).toBe(1073741824)
+    })
+
+    it('should parse decimal values', () => {
         expect(parse('1.5KiB')).toBe(1536)
         expect(parse('1.5KB')).toBe(1500)
     })
 
-    test('should handle case insensitive units', () => {
+    it('should handle case insensitive units', () => {
         expect(parse('1kib')).toBe(1024)
         expect(parse('1KB')).toBe(1000)
     })
 
-    test('should handle positive and negative values', () => {
+    it('should handle positive and negative values', () => {
         expect(parse('+1KiB')).toBe(1024)
         expect(parse('-1KiB')).toBeNull()
     })
 
-    test('should return null for invalid input', () => {
+    it('should return null for invalid input', () => {
         expect(parse('invalid')).toBeNull()
         expect(parse('1XB')).toBeNull()
     })
 
-    test('should throw error for non-string input', () => {
+    it('should throw error for non-string input', () => {
         expect(() => parse(123 as unknown as string)).toThrow('Data must be a string')
     })
 
-    test('should return bigint for values greater than MAX_SAFE_INTEGER', () => {
+    it('should return bigint for values greater than MAX_SAFE_INTEGER', () => {
         const maxSafeInteger = BigInt(Number.MAX_SAFE_INTEGER)
         const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 1]
         const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 1]
@@ -166,7 +172,7 @@ describe('parse', () => {
         expect(parse(`${maxSafeInteger + 1n}${decimalUnit}`)).toBe(9007199254740992000000000000000000000000n)
     })
 
-    test('should return number for values within MAX_SAFE_INTEGER', () => {
+    it('should return number for values within MAX_SAFE_INTEGER', () => {
         const maxSafeInteger = Number.MAX_SAFE_INTEGER
         const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 2]
         const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 2]
@@ -175,12 +181,12 @@ describe('parse', () => {
         expect(parse(`${maxSafeInteger}${decimalUnit}`)).toBe(9007199254740991000000000000000000000n)
     })
 
-    test('should handle values with many decimal places', () => {
+    it('should handle values with many decimal places', () => {
         expect(parse('1.123456789012345KiB')).toBe(1150.4197519486413)
         expect(parse('1.123456789012345KB')).toBe(1123.456789012345)
     })
 
-    test('should handle values with many decimal places and return bigint when necessary', () => {
+    it('should handle values with many decimal places and return bigint when necessary', () => {
         const maxSafeInteger = Number.MAX_SAFE_INTEGER
         const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 1]
         const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 1]
