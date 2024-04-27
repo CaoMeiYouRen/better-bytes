@@ -59,17 +59,18 @@ export function format(data: number | bigint, options: FormatOptions = {}): stri
     let i = 0
     let value: number | bigint = data
 
-    if (typeof value === 'bigint') {
-        const bigIntBase = BigInt(base)
-        while (value >= bigIntBase && i < units.length - 1) {
-            value /= bigIntBase
-            i++
+    while (value >= base && i < units.length - 1) {
+        if (typeof value === 'number' && value > Number.MAX_SAFE_INTEGER) {
+            value = BigInt(value)
+        } else if (typeof value === 'bigint' && value <= BigInt(Number.MAX_SAFE_INTEGER)) {
+            value = Number(value)
         }
-    } else {
-        while (value >= base && i < units.length - 1) {
+        if (typeof value === 'bigint') {
+            value /= BigInt(base)
+        } else {
             value /= base
-            i++
         }
+        i++
     }
 
     if (i === 0 || typeof value === 'bigint') {

@@ -48,7 +48,7 @@ import { format, parse } from 'better-bytes'
 
 format(1024) // '1.00 KiB'
 format(1073741824) // '1.00 GiB'
-format(1125899906842624n) // '1 PiB'
+format(1125899906842624n) // '1.00 PiB'
 
 format(1572864, { standard: 'kilobinary' }) // '1.50 MiB'
 format(1500000, { standard: 'kilo' }) // '1.50 MB'

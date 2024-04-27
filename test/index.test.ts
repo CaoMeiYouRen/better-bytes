@@ -18,14 +18,14 @@ describe('format', () => {
     it('should format bytes correctly for bigints', () => {
         expect(format(0n)).toBe('0 B')
         expect(format(1023n)).toBe('1023 B')
-        expect(format(1024n)).toBe('1 KiB')
-        expect(format(1048576n)).toBe('1 MiB')
-        expect(format(1073741824n)).toBe('1 GiB')
-        expect(format(1099511627776n)).toBe('1 TiB')
-        expect(format(1125899906842624n)).toBe('1 PiB')
-        expect(format(1152921504606846976n)).toBe('1 EiB')
-        expect(format(1180591620717411303424n)).toBe('1 ZiB')
-        expect(format(1208925819614629174706176n)).toBe('1 YiB')
+        expect(format(1024n)).toBe('1.00 KiB')
+        expect(format(1048576n)).toBe('1.00 MiB')
+        expect(format(1073741824n)).toBe('1.00 GiB')
+        expect(format(1099511627776n)).toBe('1.00 TiB')
+        expect(format(1125899906842624n)).toBe('1.00 PiB')
+        expect(format(1152921504606846976n)).toBe('1.00 EiB')
+        expect(format(1180591620717411303424n)).toBe('1.00 ZiB')
+        expect(format(1208925819614629174706176n)).toBe('1.00 YiB')
     })
 
     it('should handle decimal values for numbers', () => {
@@ -38,8 +38,8 @@ describe('format', () => {
     it('should handle large values', () => {
         expect(format(9223372036854775807)).toBe('8.00 EiB')
         expect(format(18446744073709551615)).toBe('16.00 EiB')
-        expect(format(18446744073709551616n)).toBe('16 EiB')
-        expect(format(36893488147419103232n)).toBe('32 EiB')
+        expect(format(18446744073709551616n)).toBe('16.00 EiB')
+        expect(format(36893488147419103232n)).toBe('32.00 EiB')
     })
 
     it('should format bytes correctly with kilobinary standard', () => {
