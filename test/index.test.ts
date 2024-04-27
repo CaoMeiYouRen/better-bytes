@@ -186,8 +186,8 @@ describe('parse', () => {
         const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 1]
 
         const valueWithManyDecimals = `${maxSafeInteger}.123456789012345`
-        const expectedBinaryResult = 10889035741470029621902167823187408060416n // BigInt(Math.floor(parseFloat(valueWithManyDecimals) * 1024 ** (KILO_BINARY_BYTE_UNITS.length - 1)))
-        const expectedDecimalResult = 9007199254740991000000000000000000000000n  // BigInt(Math.floor(parseFloat(valueWithManyDecimals) * 1000 ** (KILOBYTE_UNITS.length - 1)))
+        const expectedBinaryResult = 10889035741470029621902167823187408060416n
+        const expectedDecimalResult = 9007199254740991000000000000000000000000n
 
         expect(parse(`${valueWithManyDecimals}${binaryUnit}`)).toBe(expectedBinaryResult)
         expect(parse(`${valueWithManyDecimals}${decimalUnit}`)).toBe(expectedDecimalResult)
