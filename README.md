@@ -100,7 +100,7 @@ Format the given value in bytes into a string.
 | Property      | Type                  | Description                                                  |
 | ------------- | --------------------- | ------------------------------------------------------------ |
 | decimal       | `number`｜`undefined` | Maximum number of decimal places to include in output. Default: `2`. 输出中包含的最大小数位数。默认值：`2`。 |
-| standard      | `kilobinary`|`kilo`   | base. kilobinary = 2^10 ; kilo = 10^3. Default: `kilobinary`. 进制规范。千位二进制=2^10；千位=10^3。默认值：`kilobinary` |
+| standard      | `kilobinary`｜`kilo`   | base. kilobinary = 2^10 ; kilo = 10^3. Default: `kilobinary`. 进制规范。千位二进制=2^10；千位=10^3。默认值：`kilobinary` |
 | unitSeparator | `string`｜`undefined` | Separator to use between number and unit. Default: `' '`. 用于数字和单位之间的分隔符。默认值：`' '` |
 
 **Returns**
@@ -126,13 +126,13 @@ Parse the string value into an integer in bytes. If no unit is given, it is assu
 
 | Property        | Type                   | Description                                                  |
 | --------------- | ---------------------- | ------------------------------------------------------------ |
-| forceKilobinary | `boolean`｜`undefined` | If true, consider kilo as kilobinary, i.e. using 2 ^ 10 base. 如果为真，则将千位进制视为千位二进制，即使用2^10进制换算。 |
+| forceKilobinary | `boolean`｜`undefined` | If true, consider kilo as kilobinary, i.e. using 2 ^ 10 base. 如果为真，则将千位进制视为千位二进制，即使用 2^10 进制换算。 |
 
 **Returns**
 
 | Name    | Type                     | Description                                                  |
 | ------- | ------------------------ | ------------------------------------------------------------ |
-| results | `number`|`bigint`|`null` | Returns null on error. Otherwise, return the value of number or bigint in bytes. 出错时返回null。否则以字节为单位返回number或bigint的数值。 |
+| results | `number`｜`bigint`｜`null` | Returns null on error. Otherwise, return the value of number or bigint in bytes. 出错时返回 null。否则以字节为单位返回 number 或 bigint 的数值。 |
 
 ## 🛠️ Development/开发
 
