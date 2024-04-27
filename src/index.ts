@@ -80,7 +80,7 @@ export function format(data: number | bigint, options: FormatOptions = {}): stri
 }
 
 export const PARSE_REG_EXP = /^((\+)?(\d+(?:\.\d+)?)) *((k|m|g|t|p|e|z|y)?i?b)$/i
-export const INTEGER_REG = /^(\+)?\d+(\.\d+)?$/
+export const NUMBER_REG = /^(\+)?\d+(\.\d+)?$/
 
 export type ParseOptions = {
     /**
@@ -103,16 +103,16 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     if (typeof data !== 'string') {
         throw new Error('Data must be a string')
     }
-    if (INTEGER_REG.test(data)) {
-        const intValue = Number.parseInt(data)
-        if (!Number.isFinite(intValue) || intValue < 0) {
+    if (NUMBER_REG.test(data)) {
+        const floatValue = Number.parseFloat(data)
+        if (!Number.isFinite(floatValue) || floatValue < 0) {
             return null
         }
-        return intValue
+        return Math.floor(floatValue)
     }
     const { forceKilobinary = false } = options
     const results = PARSE_REG_EXP.exec(data)
-    const floatValue = parseFloat(results?.[1] || data)
+    const floatValue = Number.parseFloat(results?.[1] || data)
     const unit = results?.[4]?.toLowerCase()
     if (!Number.isFinite(floatValue) || floatValue < 0) {
         return null
