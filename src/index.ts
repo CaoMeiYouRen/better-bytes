@@ -61,7 +61,7 @@ export function format(data: number | bigint, options: FormatOptions = {}): stri
 
     while (value >= base && i < units.length - 1) {
         if (typeof value === 'number' && value > Number.MAX_SAFE_INTEGER) {
-            value = BigInt(value)
+            value = BigInt(Math.floor(value))
         } else if (typeof value === 'bigint' && value <= BigInt(Number.MAX_SAFE_INTEGER)) {
             value = Number(value)
         }
@@ -79,7 +79,8 @@ export function format(data: number | bigint, options: FormatOptions = {}): stri
     return `${value.toFixed(decimal)}${unitSeparator}${units[i]}`
 }
 
-export const PARSE_REG_EXP = /^((-|\+)?(\d+(?:\.\d+)?)) *((k|m|g|t|p|e|z|y)?i?b)$/i
+export const PARSE_REG_EXP = /^((\+)?(\d+(?:\.\d+)?)) *((k|m|g|t|p|e|z|y)?i?b)$/i
+export const INTEGER_REG = /^(\+)?\d+(\.\d+)?$/
 
 export type ParseOptions = {
     /**
@@ -102,16 +103,19 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     if (typeof data !== 'string') {
         throw new Error('Data must be a string')
     }
+    if (INTEGER_REG.test(data)) {
+        const intValue = Number.parseInt(data)
+        if (!Number.isFinite(intValue) || intValue < 0) {
+            return null
+        }
+        return intValue
+    }
     const { forceKilobinary = false } = options
     const results = PARSE_REG_EXP.exec(data)
     const floatValue = parseFloat(results?.[1] || data)
     const unit = results?.[4]?.toLowerCase()
-
     if (!Number.isFinite(floatValue) || floatValue < 0) {
         return null
-    }
-    if (unit === '') {
-        return Math.floor(floatValue)
     }
     let i = 0
     let standard: StandardType
@@ -134,8 +138,8 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     let result: number | bigint = floatValue
     for (let j = 0; j < i; j++) {
         const nextResult: number | bigint = typeof result === 'bigint' ? result * BigInt(base) : result * base
-        if (nextResult > Number.MAX_SAFE_INTEGER) {
-            result = BigInt(result) * BigInt(base)
+        if (typeof result === 'number' && nextResult > Number.MAX_SAFE_INTEGER) {
+            result = BigInt(Math.floor(Number(result))) * BigInt(base)
         } else {
             result = nextResult
         }
@@ -145,4 +149,3 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     }
     return result
 }
-

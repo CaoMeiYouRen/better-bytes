@@ -40,6 +40,10 @@ describe('format', () => {
         expect(format(18446744073709551615)).toBe('16.00 EiB')
         expect(format(18446744073709551616n)).toBe('16.00 EiB')
         expect(format(36893488147419103232n)).toBe('32.00 EiB')
+
+        expect(format(1152921504606846976.1)).toBe('1.00 EiB')
+        expect(format(1180591620717411303424.1)).toBe('1.00 ZiB')
+        expect(format(1208925819614629174706176.1)).toBe('1.00 YiB')
     })
 
     it('should format bytes correctly with kilobinary standard', () => {
@@ -154,6 +158,17 @@ describe('parse', () => {
         expect(parse('1KB')).toBe(1000)
     })
 
+    it('should handle no units', () => {
+        expect(parse('1024')).toBe(1024)
+        expect(parse('1000')).toBe(1000)
+        expect(parse('1000.5')).toBe(1000)
+    })
+
+    it('should return an integer', () => {
+        expect(parse('1.5B')).toBe(1)
+        expect(parse('1023.5B')).toBe(1023)
+    })
+
     it('should handle positive values', () => {
         expect(parse('+1KiB')).toBe(1024)
     })
@@ -164,6 +179,7 @@ describe('parse', () => {
         expect(parse('-1KiB')).toBeNull()
         expect(parse('Infinity')).toBeNull()
         expect(parse('-Infinity')).toBeNull()
+        expect(parse('-1')).toBeNull()
     })
 
     it('should throw error for non-string input', () => {
@@ -171,38 +187,35 @@ describe('parse', () => {
     })
 
     it('should return bigint for values greater than MAX_SAFE_INTEGER', () => {
-        const maxSafeInteger = BigInt(Number.MAX_SAFE_INTEGER)
-        const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 1]
-        const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 1]
-
-        expect(parse(`${maxSafeInteger + 1n}${binaryUnit}`)).toBe(10889035741470030830827987437816582766592n)
-        expect(parse(`${maxSafeInteger + 1n}${decimalUnit}`)).toBe(9007199254740992000000000000000000000000n)
+        expect(parse('9007199254740992 YiB')).toBe(10889035741470030830827987437816582766592n)
+        expect(parse('9007199254740992 YB')).toBe(9007199254740992000000000000000000000000n)
     })
 
     it('should return number for values within MAX_SAFE_INTEGER', () => {
-        const maxSafeInteger = Number.MAX_SAFE_INTEGER
-        const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 2]
-        const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 2]
-
-        expect(parse(`${maxSafeInteger}${binaryUnit}`)).toBe(10633823966279325802638835764831453184n)
-        expect(parse(`${maxSafeInteger}${decimalUnit}`)).toBe(9007199254740991000000000000000000000n)
+        expect(parse('9007199254740991 ZiB')).toBe(10633823966279325802638835764831453184n)
+        expect(parse('9007199254740991 ZB')).toBe(9007199254740991000000000000000000000n)
     })
 
     it('should handle values with many decimal places', () => {
-        expect(parse('1.123456789012345GiB')).toBe(1206302541)
-        expect(parse('1.123456789012345GB')).toBe(1123456789)
+        expect(parse('1.123456789012345 GiB')).toBe(1206302541)
+        expect(parse('1.123456789012345 GB')).toBe(1123456789)
+
+        expect(parse('1.123456789012345 PiB')).toBe(1264899894090712)
+        expect(parse('1.123456789012345 PB')).toBe(1123456789012345)
+
+        expect(parse('1.123456789012345 ZiB')).toBe(1326343671346062426112n)
+        expect(parse('1.123456789012345 ZB')).toBe(1123456789012345000000n)
+
+        expect(parse('1.123456789012345 YiB')).toBe(1358175919458367924338688n)
+        expect(parse('1.123456789012345 YB')).toBe(1123456789012345000000000n)
     })
 
     it('should handle values with many decimal places and return bigint when necessary', () => {
-        const maxSafeInteger = Number.MAX_SAFE_INTEGER
-        const binaryUnit = KILO_BINARY_BYTE_UNITS[KILO_BINARY_BYTE_UNITS.length - 1]
-        const decimalUnit = KILOBYTE_UNITS[KILOBYTE_UNITS.length - 1]
-
-        const valueWithManyDecimals = `${maxSafeInteger}.123456789012345`
+        const valueWithManyDecimals = '9007199254740991.123456789012345'
         const expectedBinaryResult = 10889035741470029621902167823187408060416n
         const expectedDecimalResult = 9007199254740991000000000000000000000000n
 
-        expect(parse(`${valueWithManyDecimals}${binaryUnit}`)).toBe(expectedBinaryResult)
-        expect(parse(`${valueWithManyDecimals}${decimalUnit}`)).toBe(expectedDecimalResult)
+        expect(parse(`${valueWithManyDecimals}YiB`)).toBe(expectedBinaryResult)
+        expect(parse(`${valueWithManyDecimals}YB`)).toBe(expectedDecimalResult)
     })
 })
