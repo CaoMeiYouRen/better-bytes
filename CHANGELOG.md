@@ -1,5 +1,17 @@
 # better-bytes
 
+# [1.2.0](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.1.0...v1.2.0) (2024-04-27)
+
+
+### ✨ 新功能
+
+* 更改 BigInt 数值在 format 时小数点的保留行为 ([57426d5](https://github.com/CaoMeiYouRen/better-bytes/commit/57426d5))
+
+
+### 🐛 Bug 修复
+
+* 修复 format 和 parse 可能会出现非法值的 bug；修复 parse 出的值不是整数的问题 ([34f7421](https://github.com/CaoMeiYouRen/better-bytes/commit/34f7421))
+
 # [1.1.0](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.0.0...v1.1.0) (2024-04-27)
 
 
