@@ -56,6 +56,7 @@ format(1500000, { standard: 'kilo' }) // '1.50 MB'
 format(1234, { decimal: 3, standard: 'kilobinary' }) // '1.205 KiB'
 format(1234, { decimal: 3, standard: 'kilo' }) // '1.234 KB
 
+format(1.1) // Error: 'Data must be integer'
 format(-1) // Error: 'Data must be greater than or equal to 0'
 format('invalid') // Error: 'Data must be a number or bigint'
 format(NaN) // Error: 'Data must be finite'

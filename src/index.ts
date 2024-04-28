@@ -40,19 +40,25 @@ export type FormatOptions = {
  * @author CaoMeiYouRen
  * @date 2024-04-27
  * @export
- * @param data
+ * @param data integer/bigint
  * @param [options={}]
  */
 export function format(data: number | bigint, options: FormatOptions = {}): string {
     if (typeof data !== 'number' && typeof data !== 'bigint') {
         throw new Error('Data must be a number or bigint')
     }
-    if (typeof data === 'number' && !Number.isFinite(data)) { // +Infinity/-Infinity/NaN
-        throw new Error('Data must be finite')
+    if (typeof data === 'number') {
+        if (!Number.isFinite(data)) { // +Infinity/-Infinity/NaN
+            throw new Error('Data must be finite')
+        }
+        if (!Number.isInteger(data)) {
+            throw new Error('Data must be integer')
+        }
     }
     if (data < 0) {
         throw new Error('Data must be greater than or equal to 0')
     }
+
     const { standard = 'kilobinary', decimal = 2, unitSeparator = ' ' } = options
     const units = standard === 'kilobinary' ? KILO_BINARY_BYTE_UNITS : KILOBYTE_UNITS
     const base = standard === 'kilobinary' ? KILO_BINARY_BYTE_BASE : KILOBYTE_BASE

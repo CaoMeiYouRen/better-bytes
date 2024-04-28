@@ -123,12 +123,16 @@ describe('format', () => {
         expect(() => format({} as any)).toThrow('Data must be a number or bigint')
     })
 
-    test('throws error for non-finite numbers', () => {
+    it('throws error for non-finite numbers', () => {
         expect(() => format(Infinity)).toThrow('Data must be finite')
         expect(() => format(-Infinity)).toThrow('Data must be finite')
         expect(() => format(NaN)).toThrow('Data must be finite')
     })
 
+    it('should throw an error on non integers', () => {
+        expect(() => format(1.1)).toThrow('Data must be integer')
+        expect(() => format(-1.1)).toThrow('Data must be integer')
+    })
 })
 
 describe('parse', () => {
