@@ -237,3 +237,68 @@ describe('parse', () => {
         expect(parse(`${valueWithManyDecimals}YB`)).toBe(expectedDecimalResult)
     })
 })
+
+describe('parse format result', () => {
+    test('format and parse should be inverse operations', () => {
+        const testCases = [
+            0,
+            1,
+            1024,
+            1572864,
+            1073741824,
+            1125899906842624,
+            9007199254740992n,
+            10889035741470029621902167823187408060416n,
+        ]
+
+        for (const data of testCases) {
+            const formattedString = format(data)
+            const parsedValue = parse(formattedString)
+
+            expect(parsedValue).toEqual(data)
+        }
+    })
+
+    test('format and parse with options', () => {
+        const testCases = [
+            { data: 1572864, options: { standard: 'kilobinary' } },
+            { data: 1500000, options: { standard: 'kilo' } },
+            { data: 123456, options: { decimal: 3, standard: 'kilobinary' } },
+            { data: 123456, options: { decimal: 3, standard: 'kilo' } },
+            { data: '1KB', options: { forceKilobinary: true } },
+            { data: '1GB', options: { forceKilobinary: true } },
+        ]
+
+        for (const { data, options } of testCases) {
+            const formattedString = format(typeof data === 'string' ? parse(data, options) as any : data as any, options as any)
+            const parsedValue = parse(formattedString, options)
+
+            expect(parsedValue).toEqual(typeof data === 'string' ? parse(data, options) : data)
+        }
+    })
+
+    test('format and parse precision error should be within 0.5%', () => {
+        const testCases = [
+            1234567,
+            12345678,
+            123456789,
+            1234567890,
+            12345678901,
+            123456789012,
+            1234567890123,
+            12345678901234,
+            123456789012345,
+            1234567890123456,
+            12345678901234567n,
+            123456789012345678n,
+            1234567890123456789n,
+        ]
+
+        for (const data of testCases) {
+            const formattedString = format(data)
+            const parsedValue = parse(formattedString) as (number | bigint)
+            const error = Math.abs(Number((BigInt(parsedValue) - BigInt(data)) * 100n * 10000n / BigInt(data)) / 10000)
+            expect(error).toBeLessThan(0.5)
+        }
+    })
+})
