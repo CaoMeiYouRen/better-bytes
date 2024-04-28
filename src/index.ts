@@ -142,7 +142,7 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     for (let j = 0; j < i; j++) {
         const nextResult: number | bigint = typeof result === 'bigint' ? result * BigInt(base) : result * base
         if (typeof result === 'number' && nextResult > Number.MAX_SAFE_INTEGER) {
-            result = BigInt(Math.floor(Number(result))) * BigInt(base)
+            result = BigInt(Math.floor(result)) * BigInt(base)
         } else {
             result = nextResult
         }
