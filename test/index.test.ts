@@ -1,5 +1,5 @@
 /* eslint-disable no-loss-of-precision, @typescript-eslint/no-loss-of-precision */
-import { format, KILO_BINARY_BYTE_UNITS, KILOBYTE_UNITS, parse } from '../src'
+import { format, parse } from '../src'
 
 describe('format', () => {
     it('should format bytes correctly for numbers', () => {
@@ -44,6 +44,19 @@ describe('format', () => {
         expect(format(1152921504606846976.1)).toBe('1.00 EiB')
         expect(format(1180591620717411303424.1)).toBe('1.00 ZiB')
         expect(format(1208925819614629174706176.1)).toBe('1.00 YiB')
+
+        expect(format(10889035741470028412976348208558233354240n)).toBe('9007199254740990 YiB')
+        expect(format(9007199254740990000000000000000000000000n, { standard: 'kilo' })).toBe('9007199254740990 YB')
+
+        expect(format(10889035741470029621902167823187408060416n)).toBe('9007199254740991 YiB')
+        expect(format(9007199254740991000000000000000000000000n, { standard: 'kilo' })).toBe('9007199254740991 YB')
+
+        expect(format(10889035741470030830827987437816582766592n)).toBe('9007199254740992 YiB')
+        expect(format(9007199254740992000000000000000000000000n, { standard: 'kilo' })).toBe('9007199254740992 YB')
+
+        expect(format(10633823966279325802638835764831453184n)).toBe('8796093022208.00 YiB')
+        expect(format(9007199254740991000000000000000000000n, { standard: 'kilo' })).toBe('9007199254740.99 YB')
+
     })
 
     it('should format bytes correctly with kilobinary standard', () => {
@@ -112,6 +125,7 @@ describe('format', () => {
 
     test('throws error for non-finite numbers', () => {
         expect(() => format(Infinity)).toThrow('Data must be finite')
+        expect(() => format(-Infinity)).toThrow('Data must be finite')
         expect(() => format(NaN)).toThrow('Data must be finite')
     })
 
