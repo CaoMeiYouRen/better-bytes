@@ -1,5 +1,13 @@
 # better-bytes
 
+## [1.2.1](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.0...v1.2.1) (2024-04-27)
+
+
+### 🐛 Bug 修复
+
+* 修复 没有正确解析没有单位的字符串的 bug；修复 Number 类型向 BigInt 类型转换时的 bug ([a173ee3](https://github.com/CaoMeiYouRen/better-bytes/commit/a173ee3))
+* 修复 解析逻辑的 bug ([07d846e](https://github.com/CaoMeiYouRen/better-bytes/commit/07d846e))
+
 # [1.2.0](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.1.0...v1.2.0) (2024-04-27)
 
 
