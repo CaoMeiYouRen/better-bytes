@@ -1,5 +1,12 @@
 # better-bytes
 
+## [1.2.4](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.3...v1.2.4) (2024-04-28)
+
+
+### 🐛 Bug 修复
+
+* 移除 一处不必要的 Number 类型转换 ([2394d89](https://github.com/CaoMeiYouRen/better-bytes/commit/2394d89))
+
 ## [1.2.3](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.2...v1.2.3) (2024-04-28)
 
 
