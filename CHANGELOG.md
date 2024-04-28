@@ -1,5 +1,12 @@
 # better-bytes
 
+## [1.2.3](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.2...v1.2.3) (2024-04-28)
+
+
+### 🐛 Bug 修复
+
+* 修复 format 未校验传入的参数是否为整数的问题 ([4ca96a6](https://github.com/CaoMeiYouRen/better-bytes/commit/4ca96a6))
+
 ## [1.2.2](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.1...v1.2.2) (2024-04-28)
 
 
