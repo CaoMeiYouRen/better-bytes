@@ -1,5 +1,12 @@
 # better-bytes
 
+## [1.2.2](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.1...v1.2.2) (2024-04-28)
+
+
+### 🐛 Bug 修复
+
+* 优化 无单位时的数字解析逻辑 ([2117623](https://github.com/CaoMeiYouRen/better-bytes/commit/2117623))
+
 ## [1.2.1](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.0...v1.2.1) (2024-04-27)
 
 
