@@ -297,8 +297,37 @@ describe('parse format result', () => {
         for (const data of testCases) {
             const formattedString = format(data)
             const parsedValue = parse(formattedString) as (number | bigint)
-            const error = Math.abs(Number((BigInt(parsedValue) - BigInt(data)) * 100n * 10000n / BigInt(data)) / 10000)
+            const error = Math.abs((Number(parsedValue) - Number(data)) * 100 / Number(data))
             expect(error).toBeLessThan(0.5)
+        }
+    })
+
+    test('format and parse precision should improve with more decimal places', () => {
+        const testCases = [
+            123456789,
+            1234567890,
+            12345678901,
+            123456789012,
+            1234567890123,
+            12345678901234,
+            123456789012345,
+            1234567890123456,
+            12345678901234567n,
+            123456789012345678n,
+            1234567890123456789n,
+            12345678901234567890n,
+            123456789012345678901n,
+            1234567890123456789012n,
+            12345678901234567890123n,
+            123456789012345678901234n,
+            1234567890123456789012345n,
+        ]
+
+        for (const data of testCases) {
+            const formattedString = format(data, { decimal: 10 })
+            const parsedValue = parse(formattedString)
+            const error = Math.abs((Number(parsedValue) - Number(data)) * 100 / Number(data))
+            expect(error).toBeLessThan(1e-8)
         }
     })
 })
