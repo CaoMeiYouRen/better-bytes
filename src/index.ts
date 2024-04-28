@@ -103,19 +103,16 @@ export function parse(data: string, options: ParseOptions = {}): number | bigint
     if (typeof data !== 'string') {
         throw new Error('Data must be a string')
     }
-    if (NUMBER_REG.test(data)) {
-        const floatValue = Number.parseFloat(data)
-        if (!Number.isFinite(floatValue) || floatValue < 0) {
-            return null
-        }
-        return Math.floor(floatValue)
-    }
+
     const { forceKilobinary = false } = options
     const results = PARSE_REG_EXP.exec(data)
-    const floatValue = Number.parseFloat(results?.[1] || data)
     const unit = results?.[4]?.toLowerCase()
+    const floatValue = !unit && NUMBER_REG.test(data) ? Number.parseFloat(data) : Number.parseFloat(results?.[1])
     if (!Number.isFinite(floatValue) || floatValue < 0) {
         return null
+    }
+    if (!unit) {
+        return Math.floor(floatValue)
     }
     let i = 0
     let standard: StandardType
