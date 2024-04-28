@@ -3,10 +3,13 @@
   <a href="https://www.npmjs.com/package/better-bytes" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/better-bytes.svg">
   </a>
+  <img src="https://img.shields.io/badge/node-%3E%3D16-blue.svg" >
   <a href="https://github.com/CaoMeiYouRen/better-bytes/actions?query=workflow%3ARelease" target="_blank">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/CaoMeiYouRen/better-bytes/release.yml?branch=master">
   </a>
-  <img src="https://img.shields.io/badge/node-%3E%3D16-blue.svg" />
+  <a href="https://app.codecov.io/gh/CaoMeiYouRen/better-bytes" target="_blank">
+     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/CaoMeiYouRen/better-bytes">
+  </a>
   <a href="https://github.com/CaoMeiYouRen/better-bytes#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -17,6 +20,7 @@
     <img alt="License: MIT" src="https://img.shields.io/github/license/CaoMeiYouRen/better-bytes?color=yellow" />
   </a>
 </p>
+
 
 > Better byte base conversion. Supports two base conversions: kilo binary byte (2^10) and kilobyte (10^3).
 >
