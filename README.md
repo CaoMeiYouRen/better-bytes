@@ -20,11 +20,11 @@
 
 > Better byte base conversion. Supports two base conversions: kilo binary byte (2^10) and kilobyte (10^3).
 >
-> Reference link: https://physics.nist.gov/cuu/Units/binary.html
+> Reference link: [Prefixes for binary multiples](https://physics.nist.gov/cuu/Units/binary.html) ; [Binary prefix](https://en.wikipedia.org/wiki/Binary_prefix#IEC_prefixes)
 >
 > 更好的字节进制换算。支持 千位二进制字节(2^10) 和 千字节(10^3) 两种进制换算
 >
-> 参考链接：https://physics.nist.gov/cuu/Units/binary.html
+> 参考链接：[Prefixes for binary multiples](https://physics.nist.gov/cuu/Units/binary.html) ; [Binary prefix](https://en.wikipedia.org/wiki/Binary_prefix#IEC_prefixes)
 
 ## 🏠 Home/主页
 
@@ -136,7 +136,7 @@ Parse the string value into an integer in bytes. If no unit is given, it is assu
 
 | Property        | Type                   | Description                                                  |
 | --------------- | ---------------------- | ------------------------------------------------------------ |
-| forceKilobinary | `boolean`｜`undefined` | If true, consider kilo as kilobinary, i.e. using 2 ^ 10 base. 如果为真，则将千位进制视为千位二进制，即使用 2^10 进制换算。 |
+| forceKilobinary | `boolean`｜`undefined` | If true, consider kilo as kilobinary, i.e. using 2^10 base. 如果为真，则将千位进制视为千位二进制，即使用 2^10 进制换算。 |
 
 **Returns**
 
@@ -199,6 +199,11 @@ If you find this project useful, please give it a ⭐️. Thank you very much.
 
 Copyright © 2024 [CaoMeiYouRen](https://github.com/CaoMeiYouRen).<br />
 This project is [MIT](https://github.com/CaoMeiYouRen/better-bytes/blob/master/LICENSE) licensed.
+
+## 🖥️ Reference project/参考项目
+
+- [bytes.js](https://github.com/visionmedia/bytes.js)
+- [filesize.js](https://github.com/avoidwork/filesize.js)
 
 ***
 _This README was generated with ❤️ by [cmyr-template-cli](https://github.com/CaoMeiYouRen/cmyr-template-cli)_
