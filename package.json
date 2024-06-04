@@ -60,7 +60,7 @@
     "semantic-release": "21.0.1",
     "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
-    "tsup": "^8.0.2",
+    "tsup": "^8.1.0",
     "tsx": "^4.11.2",
     "typescript": "^5.4.5"
   },
