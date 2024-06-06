@@ -238,6 +238,11 @@ describe('parse', () => {
     })
 })
 
+// 取绝对值
+function absByBigInt(value: bigint) {
+    return value < 0n ? -value : value
+}
+
 describe('parse format result', () => {
     test('format and parse should be inverse operations', () => {
         const testCases = [
@@ -294,11 +299,13 @@ describe('parse format result', () => {
             1234567890123456789n,
         ]
 
+        const amplificationFactor = 10n ** 4n // 放大系数
+
         for (const data of testCases) {
             const formattedString = format(data)
             const parsedValue = parse(formattedString) as (number | bigint)
-            const error = Math.abs((Number(parsedValue) - Number(data)) * 100 / Number(data))
-            expect(error).toBeLessThan(0.5)
+            const error = absByBigInt(BigInt(parsedValue) * amplificationFactor - BigInt(data) * amplificationFactor) / BigInt(data)
+            expect(error).toBeLessThan(50n)  // 0.5% 的精度
         }
     })
 
@@ -323,11 +330,13 @@ describe('parse format result', () => {
             1234567890123456789012345n,
         ]
 
+        const amplificationFactor = 10n ** 12n // 放大系数
+
         for (const data of testCases) {
             const formattedString = format(data, { decimal: 10 })
-            const parsedValue = parse(formattedString)
-            const error = Math.abs((Number(parsedValue) - Number(data)) * 100 / Number(data))
-            expect(error).toBeLessThan(1e-8)
+            const parsedValue = parse(formattedString) as (number | bigint)
+            const error = absByBigInt(BigInt(parsedValue) * amplificationFactor - BigInt(data) * amplificationFactor) / BigInt(data)
+            expect(error).toBeLessThan(100n)  // 1e-10 的精度
         }
     })
 })
