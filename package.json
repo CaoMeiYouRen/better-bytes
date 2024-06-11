@@ -48,7 +48,7 @@
     "conventional-changelog-cmyr-config": "^2.1.2",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "cz-conventional-changelog-cmyr": "^1.1.0",
+    "cz-conventional-changelog-cmyr": "^1.1.1",
     "debug": "^4.3.5",
     "eslint": "^8.57.0",
     "eslint-config-cmyr": "^1.1.31",
