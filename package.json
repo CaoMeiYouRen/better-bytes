@@ -98,7 +98,7 @@
     "url": "https://github.com/CaoMeiYouRen/better-bytes/issues"
   },
   "dependencies": {
-    "tslib": "^2.6.3"
+    "tslib": "^2.7.0"
   },
   "pnpm": {
     "overrides": {
