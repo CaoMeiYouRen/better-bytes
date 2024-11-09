@@ -189,7 +189,7 @@ npm run commit
 
 ## 🤝 Contribution/贡献
 
-Welcome to contribute, ask questions or propose new features! <br />If you have any questions, please check the  [issues page](https://github.com/CaoMeiYouRen/push-all-in-one/issues). <br/> For contributions or new feature proposals, please refer to the [contributing guide](https://github.com/CaoMeiYouRen/push-all-in-one/blob/master/CONTRIBUTING.md).
+Welcome to contribute, ask questions or propose new features! <br />If you have any questions, please check the  [issues page](https://github.com/CaoMeiYouRen/better-bytes/issues). <br/> For contributions or new feature proposals, please refer to the [contributing guide](https://github.com/CaoMeiYouRen/better-bytes/blob/master/CONTRIBUTING.md).
 
 欢迎 贡献、提问或提出新功能！<br />如有问题请查看 [issues page](https://github.com/CaoMeiYouRen/better-bytes/issues). <br/>贡献或提出新功能可以查看[contributing guide](https://github.com/CaoMeiYouRen/better-bytes/blob/master/CONTRIBUTING.md).
 
