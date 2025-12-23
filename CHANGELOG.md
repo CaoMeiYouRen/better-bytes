@@ -1,5 +1,12 @@
 # better-bytes
 
+## [1.2.5](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.4...v1.2.5) (2025-12-23)
+
+
+### 🐛 Bug 修复
+
+* 更新 Node.js 版本要求至 >=18 ([0fc4949](https://github.com/CaoMeiYouRen/better-bytes/commit/0fc4949))
+
 ## [1.2.4](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.3...v1.2.4) (2024-04-28)
 
 

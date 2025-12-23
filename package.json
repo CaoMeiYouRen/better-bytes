@@ -1,6 +1,6 @@
 {
   "name": "better-bytes",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Better byte base conversion. Supports two base conversions: kilo binary byte (2^10) and kilobyte (10^3).\n更好的字节进制换算。支持 千位二进制字节(2^10) 和 千字节(10^3) 两种进制换算",
   "author": "CaoMeiYouRen",
   "private": false,
