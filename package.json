@@ -18,8 +18,9 @@
     "dist"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
+  "type": "module",
   "scripts": {
     "lint": "cross-env NODE_ENV=production eslint src --fix",
     "release": "semantic-release",

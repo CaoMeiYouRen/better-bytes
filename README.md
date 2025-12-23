@@ -6,7 +6,7 @@
     <a href="https://www.npmjs.com/package/better-bytes" target="_blank">
     <img alt="npm publish" src="https://img.shields.io/npm/dt/better-bytes?label=npm%20downloads&color=yellow">
   </a>
-  <img src="https://img.shields.io/badge/node-%3E%3D16-blue.svg" >
+  <img src="https://img.shields.io/badge/node-%3E%3D18-blue.svg" >
   <a href="https://github.com/CaoMeiYouRen/better-bytes/actions?query=workflow%3ARelease" target="_blank">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/CaoMeiYouRen/better-bytes/release.yml?branch=master">
   </a>
@@ -38,7 +38,7 @@
 
 ## 📦 Dependency Requirements/依赖要求
 
--   node >=16
+-   node >=18
 
 ## 🚀 Installation/安装
 
