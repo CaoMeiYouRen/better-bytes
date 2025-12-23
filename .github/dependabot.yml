@@ -17,9 +17,6 @@ updates:
       - dependency-name: "@commitlint/config-conventional"
         versions:
           - ">= 19.0.0"
-      - dependency-name: "eslint"
-        versions:
-          - ">= 9.0.0"
   - package-ecosystem: github-actions
     directory: /
     open-pull-requests-limit: 20
