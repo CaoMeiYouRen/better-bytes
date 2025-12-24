@@ -1,5 +1,12 @@
 # better-bytes
 
+## [1.2.6](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.5...v1.2.6) (2025-12-24)
+
+
+### 🐛 Bug 修复
+
+* **package:** 更新主入口和类型定义文件路径 ([7cfa3dc](https://github.com/CaoMeiYouRen/better-bytes/commit/7cfa3dc))
+
 ## [1.2.5](https://github.com/CaoMeiYouRen/better-bytes/compare/v1.2.4...v1.2.5) (2025-12-23)
 
 
