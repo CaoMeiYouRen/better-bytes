@@ -1,4 +1,4 @@
-/* eslint-disable no-loss-of-precision, @typescript-eslint/no-loss-of-precision */
+/* eslint-disable no-loss-of-precision */
 import { format, parse } from '../src'
 
 describe('format', () => {
@@ -305,7 +305,7 @@ describe('parse format result', () => {
             const formattedString = format(data)
             const parsedValue = parse(formattedString) as (number | bigint)
             const error = absByBigInt(BigInt(parsedValue) * amplificationFactor - BigInt(data) * amplificationFactor) / BigInt(data)
-            expect(error).toBeLessThan(50n)  // 0.5% 的精度
+            expect(error).toBeLessThan(50n) // 0.5% 的精度
         }
     })
 
@@ -336,7 +336,7 @@ describe('parse format result', () => {
             const formattedString = format(data, { decimal: 10 })
             const parsedValue = parse(formattedString) as (number | bigint)
             const error = absByBigInt(BigInt(parsedValue) * amplificationFactor - BigInt(data) * amplificationFactor) / BigInt(data)
-            expect(error).toBeLessThan(100n)  // 1e-10 的精度
+            expect(error).toBeLessThan(100n) // 1e-10 的精度
         }
     })
 })
