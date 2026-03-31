@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.2",
-    "@types/debug": "^4.1.12",
+    "@types/debug": "^4.1.13",
     "@types/node": "^25.3.2",
     "@vitest/coverage-v8": "^4.0.16",
     "commitizen": "^4.3.1",
