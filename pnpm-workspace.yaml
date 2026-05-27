@@ -1,0 +1,8 @@
+overrides:
+  compare-func: ^2.0.0
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver
+strictPeerDependencies: false
+allowBuilds:
+  esbuild: true
